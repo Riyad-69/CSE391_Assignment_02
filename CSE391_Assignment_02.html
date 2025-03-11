@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22101201_MD_READ_AL_RASHID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        /* Fortune Generator */
+        #fortune-box {
+            padding: 15px;
+            margin-top: 10px;
+            border: 2px solid green; /* Default border color */
+            background-color: yellow; /* Default background color */
+            font-size: 18px;
+            color: red; /* Default font color */
+        }
+        .fortune-buttons button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .color-btn { background-color: orange; color: white; }
+        .bg-btn { background-color: purple; color: white; }
+        .border-btn { background-color: green; color: white; }
+        .font-btn { background-color: blue; color: white; }
+
+        /* Stopwatch */
+        #stopwatch {
+            font-size: 40px;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+            display: inline-block;
+            background: white;
+        }
+        .stopwatch-buttons button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .start-btn { background-color: green; color: white; }
+        .stop-btn { background-color: red; color: white; }
+        .reset-btn { background-color: blue; color: white; }
+
+        /* To-Do List */
+        input {
+            width: 70%;
+            padding: 8px;
+            font-size: 16px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .delete-btn {
+            background-color: red;
+            color: white;
+            padding: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fortune Generator -->
+    <div class="container">
+        <h2>Fortune Generator</h2>
+        <div id="fortune-box"></div>
+        <div class="fortune-buttons">
+            <button class="color-btn" onclick="changeFontColor()">Font Color</button>
+            <button class="bg-btn" onclick="changeBackgroundColor()">Background</button>
+            <button class="border-btn" onclick="changeBorderColor()">Border</button>
+            <button class="font-btn" onclick="changeFontSize()">Font Size</button>
+            <button class="font-btn" onclick="changeFontFamily()">Font Style</button>
+        </div>
+    </div>
+
+    <!-- Stopwatch -->
+    <div class="container">
+        <h2>Stopwatch</h2>
+        <div id="stopwatch">0s</div>
+        <div class="stopwatch-buttons">
+            <button class="start-btn" onclick="startTimer()">Start</button>
+            <button class="stop-btn" onclick="stopTimer()">Stop</button>
+            <button class="reset-btn" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="container">
+        <h2>To-Do List</h2>
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Fortune Generator
+        const fortunes = [
+            "Do not be afraid of competition",
+            "An exciting opportunity lies ahead of you.",
+            "You love peace.",
+            "Get your mind set…confidence will lead you on.",
+            "You will always be surrounded by true friends.",
+            "Sell your ideas-they have exceptional merit.",
+            "You should be able to undertake and complete anything.",
+            "You are kind and friendly.",
+            "You are wise beyond your years.",
+            "Your ability to juggle many tasks will take you far.",
+            "A routine task will turn into an enchanting adventure.",
+            "Beware of all enterprises that require new clothes.",
+            "Be true to your work, your word, and your friend.",
+            "Goodness is the only investment that never fails.",
+            "A journey of a thousand miles begins with a single step.",
+            "Forget injuries; never forget kindnesses.",
+            "Respect yourself and others will respect you.",
+            "A man cannot be comfortable without his own approval.",
+            "It is easier to stay out than to get out."
+            
+        ];
+        
+        function generateFortune() {
+            const fortuneBox = document.getElementById("fortune-box");
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            fortuneBox.textContent = fortunes[randomIndex];
+        }
+
+        // Generate a fortune when the page loads
+        window.onload = generateFortune;
+
+        function changeFontColor() {
+            const colors = ["blue", "green", "purple", "orange", "pink"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById("fortune-box").style.color = randomColor;
+        }
+        function changeBackgroundColor() {
+            const colors = ["yellow", "lightblue", "lightgreen", "lightpink", "lightgray"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById("fortune-box").style.backgroundColor = randomColor;
+        }
+        function changeBorderColor() {
+            const colors = ["red", "blue", "green", "purple", "orange"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById("fortune-box").style.borderColor = randomColor;
+        }
+        function changeFontSize() {
+            const fortuneBox = document.getElementById("fortune-box");
+            const currentSize = parseInt(window.getComputedStyle(fortuneBox).fontSize);
+            const newSize = currentSize + 2;
+            if (newSize <= 24) {
+                fortuneBox.style.fontSize = newSize + "px";
+            }
+        }
+
+        function changeFontFamily() {
+            const fonts = ["Times New Roman", "Arial", "Courier New", "Georgia", "Verdana"];
+            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+            document.getElementById("fortune-box").style.fontFamily = randomFont;
+        }
+
+        // Stopwatch
+        let time = 0;
+        let timer = null;
+
+        function startTimer() {
+            if (timer === null) {
+                timer = setInterval(() => {
+                    if (time < 30) {
+                        time += 3;
+                        document.getElementById("stopwatch").textContent = time + "s";
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                    }
+                }, 3000);
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = null;
+            time = 0;
+            document.getElementById("stopwatch").textContent = "0s";
+        }
+
+        // To-Do List
+        document.addEventListener("DOMContentLoaded", loadTasks);
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskText = taskInput.value.trim();
+
+            if (taskText === "") return;
+
+            let task = { text: taskText, completed: false };
+            let tasks = getTasksFromStorage();
+            tasks.push(task);
+            saveTasksToStorage(tasks);
+
+            taskInput.value = "";
+            displayTasks();
+        }
+
+        function displayTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            let tasks = getTasksFromStorage();
+
+            tasks.forEach((task, index) => {
+                let li = document.createElement("li");
+
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = task.completed;
+                checkbox.addEventListener("change", () => toggleTask(index));
+
+                let span = document.createElement("span");
+                span.textContent = task.text;
+                if (task.completed) span.classList.add("completed");
+
+                let deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "X";
+                deleteBtn.classList.add("delete-btn");
+                deleteBtn.addEventListener("click", () => deleteTask(index));
+
+                li.appendChild(checkbox);
+                li.appendChild(span);
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+            });
+        }
+
+        function toggleTask(index) {
+            let tasks = getTasksFromStorage();
+            tasks[index].completed = !tasks[index].completed;
+            saveTasksToStorage(tasks);
+            displayTasks();
+        }
+
+        function deleteTask(index) {
+            let tasks = getTasksFromStorage();
+            tasks.splice(index, 1);
+            saveTasksToStorage(tasks);
+            displayTasks();
+        }
+
+        function getTasksFromStorage() {
+            return JSON.parse(localStorage.getItem("tasks")) || [];
+        }
+
+        function saveTasksToStorage(tasks) {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        }
+
+        function loadTasks() {
+            displayTasks();
+        }
+    </script>
+
+</body>
+</html>
